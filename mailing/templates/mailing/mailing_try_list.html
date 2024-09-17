@@ -1,0 +1,28 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="card box-shadow">
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th class="w-33%">Дата и время последней попытки</th>
+                        <th class="w-33%">Статус попытки</th>
+                        <th class="w-33%">Ответ почтового сервера</th>
+                    </tr>
+                    {% for object in object_list %}
+                    {% if object.mailing.owner == request.user or user.is_superuser %}
+                    <tr>
+                        <td scope="row">{{ object.datetime_try_last }}</td>
+                        <td>{% if object.try_status == True %} УСПЕШНО {% else %} ОШИБКА {% endif %}</td>
+                        <td>{% if object.server_response %} {{ object.server_response }} {% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <a class="p-2 nav-link active" href="{% url 'mailing:message_create' %}">Создать письмо</a>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th width="30%">Заголовок</th>
+                    <th width="60%">Содержание письма</th>
+                    <th width="10%"></th>
+                </tr>
+                {% for object in object_list %}
+                {% if user.is_superuser %}
+                <tr>
+                    <td scope="row">{{ object.subject }}</td>
+                    <td>{{ object.body }}</td>
+                    {% if user.is_superuser %}
+                    <td><a href="{% url 'mailing:message_delete' object.pk %}" type="button" class="nav-link">Удалить</a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        {% if user.is_superuser %}
+        <a class="p-2 nav-link active" href="{% url 'mailing:settings_create' %}">Добавить настройку</a>
+        {% endif %}
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th width="22%">Периодичность</th>
+                    <th width="22%">Статус</th>
+                    <th width="22%">Дата первой отправки</th>
+                    <th width="22%">Дата следующей отправки</th>
+                    <th width="12%"></th>
+                </tr>
+                {% for object in object_list %}
+                {% if object.owner_id == request.user.id or user.is_superuser %}
+                <tr>
+                    <td>{{ object.periodicity_mailing }}</td>
+                    <td>{{ object.mailing_status }}</td>
+                    <td>{{ object.date_start_mailing }}</td>
+                    <td>{{ object.date_next_mailing }}</td>
+                    {% if user.is_superuser %}
+                    <td><a href="{% url 'mailing:settings_delete' object.pk %}" type="button" class="warning">Удалить</a></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row mb-4">
+
+    <div class="card-body">
+        <table class="table table-bordered text-center">
+            <tr>
+                <th width="33%">Всего рассылок</th>
+                <th width="33%">Активных рассылок</th>
+                <th width="33%">Уникальных клиентов</th>
+            </tr>
+            <tr>
+                <td>{{ all_mailings_count }}</td>
+                <td>{{ active_mailings_count }}</td>
+                <td>{{ unique_clients_count }}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<div class="row">
+    {% for object in blog_list %}
+    <div class="col-4 text-center">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+            </div>
+            <div class="card-body">
+                <img src="{{ object.picture | media_filter }}" class="img-thumbnail" width="250">
+                <h6 class="text">{{ object.content|truncatechars:100 }}</h6>
+                {% if user.is_authenticated %}
+                <a href="{% url 'blog:blog_detail' object.pk %}" type="button"
+                   class="btn btn-block btn-outline-primary">Подробнее</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

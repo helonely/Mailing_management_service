@@ -1,0 +1,22 @@
+{% extends "mailing/base.html" %}
+{% block content %}
+<div class="container">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Редактирование профиля</h3>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="{% url 'users:profile_detail' %}" role="button">Сохранить изменения</a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="{% url 'users:profile_detail' %}" role="button">Профиль</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<form method="post" class="row" enctype="multipart/form-data">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-lg btn-block btn-success mb-3">
+                    {% if object %}
+                    Изменить
+                    {% else %}
+                    Добавить
+                    {% endif %}
+                </button>
+                <div class="col-4">
+                    <a href="{% url 'mailing:settings_list' %}" type="button" class="btn btn-secondary">Отмена</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

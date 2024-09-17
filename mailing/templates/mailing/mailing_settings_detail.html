@@ -1,0 +1,24 @@
+{% extends "mailing/base.html" %}
+
+{% block content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">Детали рассылки</div>
+        <div class="card-body">
+            <h5>Дата начала рассылки: {{ object.date_start_mailing }}</h5>
+            <p>Периодичность рассылки: {{ object.periodicity_mailing }}</p>
+            <p>Статус рассылки: {{ object.mailing_status }}</p>
+            <h6>Сообщение:</h6>
+            <p>{{ object.message.subject }}</p>
+            <p>{{ object.message.body }}</p>
+            <h6>Clients:</h6>
+            <ul>
+                {% for client in object.clients.all %}
+                    <li>{{ client.full_name }} ({{ client.email }})</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'mailing:settings_list' %}" class="btn btn-primary">Назад к списку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

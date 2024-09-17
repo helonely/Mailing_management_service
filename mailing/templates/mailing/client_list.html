@@ -1,0 +1,32 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <a class="btn btn-primary" href="{% url 'mailing:client_create' %}">Добавить клиента</a>
+        <div class="card box-shadow">
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th class="w-30">Почта</th>
+                        <th class="w-30">Ф.И.О.</th>
+                        <th class="w-30">Комментарий</th>
+                        <th></th>
+                    </tr>
+                    {% for object in object_list %}
+                    {% if user.is_superuser %}
+                    <tr>
+                        <td scope="row">{{ object.email }}</td>
+                        <td>{{ object.full_name }}</td>
+                        <td>{% if object.comment %} {{ object.comment }} {% endif %}</td>
+                        <td><a href="{% url 'mailing:client_detail' object.pk %}" type="button" class="btn btn-primary">Подробнее</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
