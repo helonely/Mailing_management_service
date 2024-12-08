@@ -1,4 +1,4 @@
-# Web-services cw_Django 
+# Web-services & Mailing management
 
 ## Функциональность
 
